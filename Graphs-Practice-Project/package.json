@@ -10,7 +10,7 @@
   "license": "SEE LICENSE IN LICENSE.txt",
   "dependencies": {
     "chai": "^4.3.4",
-    "mocha": "^8.3.2"
+    "mocha": "^10.0.0"
   },
   "private": true
 }
