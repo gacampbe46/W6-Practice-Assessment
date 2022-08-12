@@ -31,7 +31,7 @@ function findMaxEachLevel(root) {
 
   while (stack.length > 0) {
       const curr = stack.pop();
-      console.log(curr.value)
+      // console.log(curr.value)
 
       if (maxes[curr.level]) {
           maxes[curr.level] = Math.max(curr.value, maxes[curr.level]);

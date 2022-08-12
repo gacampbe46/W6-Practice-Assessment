@@ -100,7 +100,7 @@ function pathTraversal(node, matrix, visited, peak) {
     // console.log(visited)
     let curr = stack.pop();
     let [currRow, curColumn] = curr;
-    // DO THE THING (increment size by 1)
+    // DO THE THING (check and see if we found the peak)
     if(matrix[currRow][curColumn] === peak) return true
     // Then push all the UNVISITED neighbors on top of the stack
     // and mark them as visited
@@ -119,82 +119,82 @@ function pathTraversal(node, matrix, visited, peak) {
 
 function identifyPath(mountain) {
     // Find the peak
-    let peak = -Infinity;
-    mountain.forEach(row => {
-        row.forEach(node => {
-            if(node > peak ) peak = node;
-        })
-    })
+    let peak = findPeak(mountain)
 
     // Find the start
-    // Iterate through the matrix and find coords of all zero values
-    let zeros = []
+    let startArr = findStarts(mountain)
 
-    mountain.forEach((row, rowIndex) => {
-        row.forEach((nodeVal, colIndex) => {
-            if(nodeVal === 0) {
-                zeros.push([rowIndex, colIndex]);
-                console.log(zeros)
-            }
-        })
+    let bestPath;
+    startArr.forEach(el => {
+        if(pathTraversal(el, mountain, visited = new Set(), peak)){
+            bestPath = el
+        }
     })
 
-    zeros.filter(el => {
-        if(pathTraversal(el, mountain, visited = new Set(), peak)) return el
-    })
-
-    console.log(zeros)
-
-    return zeros[0]
-    // Traverse from the starts and try to get to the top
-    // Your code here
+    return bestPath;
 }
 
 // Uncomment for local testing
 
 // // Example 0
 // const mountain_0 = [
-//     [1, 2, 4],
-//     [4, 5, 9],
-//     [5, 7, 6]
-// ];
+    //     [1, 2, 4],
+    //     [4, 5, 9],
+    //     [5, 7, 6]
+    // ];
 
-// console.log(findNeighbors([2,0], mountain_0)) // <- Expect '[ [ 1, 0 ], [ 1, 1 ] ]'
+    // console.log(findNeighbors([2,0], mountain_0)) // <- Expect '[ [ 1, 0 ], [ 1, 1 ] ]'
 
-// // Example 1
-// const mountain_1 = [
-//         [1, 0, 1, 1],
-//         [2, 3, 2, 1],
-//         [0, 2, 4, 1],
-//         [3, 2, 3, 1]
-// ];
+    // // Example 1
+    // const mountain_1 = [
+        //         [1, 0, 1, 1],
+        //         [2, 3, 2, 1],
+        //         [0, 2, 4, 1],
+        //         [3, 2, 3, 1]
+        // ];
 
-// test_visited = new Set()
-// console.log(pathTraversal([0, 1], mountain_1, test_visited, 4)) // <- Expect 'true
-// console.log(identifyPath(mountain_1)) // <- Expect '[ 0, 1 ]'
+        // test_visited = new Set()
+        // console.log(pathTraversal([0, 1], mountain_1, test_visited, 4)) // <- Expect 'true
+        // console.log(identifyPath(mountain_1)) // <- Expect '[ 0, 1 ]'
 
-// // Example 2
-// const mountain_2 = [
-//         [0, 2, 1, 1],
-//         [2, 2, 3, 1],
-//         [1, 1, 1, 1],
-//         [1, 0, 1, 1]
-// ];
+        // // Example 2
+        // const mountain_2 = [
+            //         [0, 2, 1, 1],
+            //         [2, 2, 3, 1],
+            //         [1, 1, 1, 1],
+            //         [1, 0, 1, 1]
+            // ];
 
-// console.log(identifyPath(mountain_2)) // <- Expect '[ 3, 1 ]'
+            // console.log(identifyPath(mountain_2)) // <- Expect '[ 3, 1 ]'
 
-// // Example 3
-// const mountain_3 = [
-//         [0, 1, 2, 0],
-//         [5, 1, 3, 2],
-//         [4, 1, 2, 1],
-//         [3, 4, 3, 1]
-// ];
+            // // Example 3
+            // const mountain_3 = [
+                //         [0, 1, 2, 0],
+                //         [5, 1, 3, 2],
+                //         [4, 1, 2, 1],
+                //         [3, 4, 3, 1]
+                // ];
 
-// console.log(identifyPath(mountain_3)) // <- Expect '[ 0, 0 ]'
+                // console.log(identifyPath(mountain_3)) // <- Expect '[ 0, 0 ]'
 
+                // Alternative 'findStarts' method
+                // mountain.forEach((row, rowIndex) => {
+                    //     row.forEach((nodeVal, colIndex) => {
+                        //         if(nodeVal === 0) {
+                            //             zeros.push([rowIndex, colIndex]);
+                            //             console.log(zeros)
+                            //         }
+                            //     })
+                            // })
 
+                // Alternative findPeak Method
+                            // let peak = -Infinity;
+                            // mountain.forEach(row => {
+                            //     row.forEach(node => {
+                            //         if(node > peak ) peak = node;
+                            //     })
+                            // })
 
-/*************DO NOT MODIFY UNDER THIS LINE ***************/
+                            /*************DO NOT MODIFY UNDER THIS LINE ***************/
 
-module.exports = [identifyPath, findNeighbors, pathTraversal];
+                            module.exports = [identifyPath, findNeighbors, pathTraversal];
