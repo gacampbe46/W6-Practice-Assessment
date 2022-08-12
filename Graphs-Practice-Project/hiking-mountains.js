@@ -47,8 +47,45 @@ function findStarts(matrix) {
 
 function findNeighbors(node, matrix) {
     // Don't forget to include diagonal neighbors!!!
+    let [row, column] = node;       // deconstruct node
+    let neighbors = [];             // init neighbors array
+    let selectNeighbors = []        // init select neighbors array
 
-    // Your code here
+
+    // Neighbor 1: Directly Above
+    if(row > 0) neighbors.push([row - 1,column])
+
+    // Neighbor 2: Diagonal top-right
+    if(row > 0 && column < matrix[0].length - 1) neighbors.push([row - 1,column + 1])
+
+    // Neighbor 3: Directly Right
+    if(column < matrix[0].length - 1) neighbors.push([row,column + 1])
+
+    // Neighbor 4: Diagonal bottom-right
+    if(row < matrix.length - 1 && column < matrix[0].length - 1) neighbors.push([row + 1,column + 1])
+
+    // Neighbor 5: Directly below
+    if(row < matrix.length - 1) neighbors.push([row + 1,column])
+
+    // Neighbor 6: Diagonal bottom-left
+    if(row < matrix.length - 1 > 0 && column > 0) neighbors.push([row + 1,column - 1])
+
+    // Neighbor 7: Directly to the left
+    if(column > 0) neighbors.push([row, column - 1])
+
+    // Neighbor 8: Diagonal top-left
+    if(row > 0 && column > 0) neighbors.push([row - 1, column - 1])
+
+    // console.log(neighbors)  // At this point in our code, we know we have all neighbors
+
+    neighbors.forEach(el => {
+        let [myRow, myColumn] = el;
+        let difference = Math.abs(matrix[row][column] - matrix[myRow][myColumn]);
+        if(difference <= 1) selectNeighbors.push(el);
+    })
+
+    // console.log(selectNeighbors);
+    return selectNeighbors;
 }
 
 function pathTraversal(node, matrix, visited, peak) {

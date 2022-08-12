@@ -8,7 +8,7 @@ describe('findNeighbors', () => {
   const elevation_data = [
     [1, 2, 4],
     [4, 5, 9],
-    [5, 7, 6]
+    [5, 7, 6],
   ];
 
   it('Finds neighbors 1 different in all 8 directions', () => {
