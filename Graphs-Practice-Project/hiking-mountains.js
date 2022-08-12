@@ -52,6 +52,8 @@ function findNeighbors(node, matrix) {
     let selectNeighbors = []        // init select neighbors array
 
 
+    // STEP 1: FIND ALL NEIGHBORS
+
     // Neighbor 1: Directly Above
     if(row > 0) neighbors.push([row - 1,column])
 
@@ -78,6 +80,7 @@ function findNeighbors(node, matrix) {
 
     // console.log(neighbors)  // At this point in our code, we know we have all neighbors
 
+    //  STEP 2: FILTER NEIGHBORS TO ONLY HAVE DIFFERENCE OF 1
     neighbors.forEach(el => {
         let [myRow, myColumn] = el;
         let difference = Math.abs(matrix[row][column] - matrix[myRow][myColumn]);
@@ -89,7 +92,30 @@ function findNeighbors(node, matrix) {
 }
 
 function pathTraversal(node, matrix, visited, peak) {
-    // Your code here
+    let stack = [node]
+    visited.add(node.join(','))
+
+    while(stack.length > 0){
+    // Pop the first node
+    console.log(visited)
+    let curr = stack.pop();
+    let [currRow, curColumn] = curr;
+    // DO THE THING (increment size by 1)
+    if(matrix[currRow][curColumn] === peak) return true
+    // Then push all the UNVISITED neighbors on top of the stack
+    // and mark them as visited
+    // HINT: This is what your helper function `getNeighbors` is for
+    let neighbor = findNeighbors(curr, matrix)
+        neighbor.forEach(el => {
+        // HINT: Remember, you're storing your visited nodes as strings!
+            if(!visited.has(el.join(','))){
+                visited.add(el.join(','))
+                stack.push(el)
+            }
+        })
+    }
+
+    return false
 }
 
 function identifyPath(mountain) {
