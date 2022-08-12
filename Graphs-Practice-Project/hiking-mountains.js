@@ -97,7 +97,7 @@ function pathTraversal(node, matrix, visited, peak) {
 
     while(stack.length > 0){
     // Pop the first node
-    console.log(visited)
+    // console.log(visited)
     let curr = stack.pop();
     let [currRow, curColumn] = curr;
     // DO THE THING (increment size by 1)
@@ -114,14 +114,38 @@ function pathTraversal(node, matrix, visited, peak) {
             }
         })
     }
-
     return false
 }
 
 function identifyPath(mountain) {
     // Find the peak
-    // Find the start
+    let peak = -Infinity;
+    mountain.forEach(row => {
+        row.forEach(node => {
+            if(node > peak ) peak = node;
+        })
+    })
 
+    // Find the start
+    // Iterate through the matrix and find coords of all zero values
+    let zeros = []
+
+    mountain.forEach((row, rowIndex) => {
+        row.forEach((nodeVal, colIndex) => {
+            if(nodeVal === 0) {
+                zeros.push([rowIndex, colIndex]);
+                console.log(zeros)
+            }
+        })
+    })
+
+    zeros.filter(el => {
+        if(pathTraversal(el, mountain, visited = new Set(), peak)) return el
+    })
+
+    console.log(zeros)
+
+    return zeros[0]
     // Traverse from the starts and try to get to the top
     // Your code here
 }
